@@ -3,16 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imgur 圖片上傳與顯示 (Python版)</title>
+    <title>NCC COIN SAMPLE</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
-        #imagePreview {
+        h1, h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .photo-container {
+            text-align: center;
+        }
+        img {
             max-width: 100%;
+            height: auto;
+        }
+        .upload-section {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        #imagePreview {
+            max-width: 300px;
             margin-top: 20px;
         }
     </style>
@@ -21,13 +43,100 @@
     <script src="https://cdn.jsdelivr.net/npm/brython@3/brython_stdlib.js"></script>
 </head>
 <body onload="brython()">
-    <h1>Imgur 圖片上傳與顯示 (Python版)</h1>
-    <input type="file" id="imageInput" accept="image/*">
-    <button id="uploadButton">上傳圖片</button>
-    <div id="result"></div>
-    <img id="imagePreview" src="" alt="預覽圖片">
+    <h1>NCC COIN SAMPLE Send your Ideas</h1>
+    
+    <div class="gallery" id="imageGallery">
+        <!-- 動態添加的圖片將在這裡顯示 -->
+    </div>
+    
+    <div class="upload-section">
+        <h2>upload your idea</h2>
+        <input type="file" id="imageInput" accept="image/*">
+        <button id="uploadButton">Upload</button>
+        <div id="result"></div>
+        <img id="imagePreview" src="" alt="Preview">
+    </div>
+    
+    <h2><a href="https://www.surveycake.com/s/2XeYr">Survey and vote</a></h2>
 
-    <!-- 引入 Python 腳本 -->
-    <script type="text/python" src="imgur_uploader.py"></script>
+    <script type="text/python">
+from browser import document, ajax, window, html
+import json
+
+class ImgurUploader:
+    def __init__(self):
+        self.client_id = 'a0f19779af81cc0'  # 請替換為您的Imgur Client ID
+    
+    def upload_image(self, event):
+        input_elem = document['imageInput']
+        if not input_elem.files:
+            window.alert('請選擇一個圖片文件')
+            return
+        
+        file = input_elem.files[0]
+        reader = window.FileReader.new()
+        reader.readAsDataURL(file)
+        reader.bind('load', lambda e: self._send_to_imgur(e.target.result))
+
+    def _send_to_imgur(self, base64_image):
+        image_data = base64_image.split(',')[1]
+        
+        req = ajax.Ajax()
+        req.bind('complete', self._on_complete)
+        req.open('POST', 'https://api.imgur.com/3/image')
+        req.set_header('Authorization', f'Client-ID {self.client_id}')
+        req.send({'image': image_data})
+
+    def _on_complete(self, req):
+        if req.status == 200:
+            response = json.loads(req.text)
+            image_url = response['data']['link']
+            document['result'].innerHTML = f'上傳成功！'
+            document['imagePreview'].attrs['src'] = image_url
+            self._add_image_to_gallery(image_url)
+            self._save_image_url(image_url)
+        else:
+            print('上傳失敗:', req.text)
+            document['result'].innerHTML = '上傳失敗，請稍後再試。'
+
+    def _add_image_to_gallery(self, image_url):
+        gallery = document['imageGallery']
+        container = html.DIV(Class="photo-container")
+        img = html.IMG(src=image_url, alt="上傳的圖片")
+        container <= img
+        gallery.insertBefore(container, gallery.firstChild)
+
+    def _save_image_url(self, image_url):
+        current_images = json.loads(window.localStorage.getItem('uploadedImages') or '[]')
+        current_images.insert(0, image_url)
+        if len(current_images) > 9:  # 限制最多顯示9張圖片
+            current_images = current_images[:9]
+        window.localStorage.setItem('uploadedImages', json.dumps(current_images))
+
+def init():
+    uploader = ImgurUploader()
+    document['uploadButton'].bind('click', uploader.upload_image)
+    document['imageInput'].bind('change', preview_image)
+    load_saved_images()
+
+def preview_image(event):
+    file = event.target.files[0]
+    if file:
+        reader = window.FileReader.new()
+        reader.readAsDataURL(file)
+        reader.bind('load', lambda e: setattr(document['imagePreview'], 'src', e.target.result))
+
+def load_saved_images():
+    saved_images = json.loads(window.localStorage.getItem('uploadedImages') or '[]')
+    gallery = document['imageGallery']
+    for image_url in saved_images:
+        container = html.DIV(Class="photo-container")
+        img = html.IMG(src=image_url, alt="保存的圖片")
+        container <= img
+        gallery <= container
+
+# 初始化
+init()
+    </script>
 </body>
 </html>
