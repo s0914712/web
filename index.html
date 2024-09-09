@@ -20,6 +20,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
+            margin-bottom: 40px;
         }
         .photo-container {
             text-align: center;
@@ -37,6 +38,11 @@
             max-width: 300px;
             margin-top: 20px;
         }
+        .email-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
     <!-- 引入 Brython 程式庫 -->
     <script src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js"></script>
@@ -45,18 +51,36 @@
 <body onload="brython()">
     <h1>NCC COIN SAMPLE Send your Ideas</h1>
     
+    <div class="gallery">
+        <div class="photo-container">
+            <a href="https://imgur.com/0cxg6lQ"><img src="https://i.imgur.com/0cxg6lQ.png" title="source: imgur.com" /></a>
+            <p>every boday united</p>
+        </div>
+        <div class="photo-container">
+            <a href="https://imgur.com/vWActHq"><img src="https://i.imgur.com/vWActHq.png" title="source: imgur.com" /></a>
+            <p>We are the World</p>
+        </div>
+        <div class="photo-container">
+            <img src="https://i.imgur.com/0sFAiD2.png" alt="照片 3">
+            <p>Salute</p>
+        </div>
+    </div>
+    
+    <h2>用戶上傳的圖片</h2>
     <div class="gallery" id="imageGallery">
         <!-- 動態添加的圖片將在這裡顯示 -->
     </div>
     
     <div class="upload-section">
-        <h2>upload your idea</h2>
+        <h2>上傳您的想法</h2>
         <input type="file" id="imageInput" accept="image/*">
-        <button id="uploadButton">Upload</button>
+        <button id="uploadButton">上傳圖片</button>
         <div id="result"></div>
-        <img id="imagePreview" src="" alt="Preview">
+        <img id="imagePreview" src="" alt="預覽圖片">
     </div>
     
+    <a href="mailto:s0914712@gmail.com" class="email-link">Send your Ideas by mail</a>
+    <h1>mail to:s0914712@gmail.com</h1>
     <h2><a href="https://www.surveycake.com/s/2XeYr">Survey and vote</a></h2>
 
     <script type="text/python">
