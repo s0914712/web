@@ -1,0 +1,58 @@
+body {
+    background-color: #ccc;
+}
+
+td {
+    background-color: #ddd;
+    border-radius: 0.2em;
+    padding: 4px;
+    margin: 2px;
+    text-align: center;
+    cursor: default;
+}
+
+td.text {
+    color: white;
+}
+
+div.app {
+    text-align: center;
+    background-color: #ccc;
+}
+
+table.app {
+    width: 100%;
+
+}
+
+button {
+    width:100%;
+}
+
+td.input {
+    text-align: left;
+}
+
+td.output {
+    text-align: left;
+}
+
+#input {
+    width:97%;
+    font-family: monospace;
+}
+
+#output {
+    width:97%;
+    font-family: monospace;
+}
+
+#result {
+    text-align: right;
+}
+
+/* 檔名: app_style.css
+   說明:《Python入門指南》的範例程式
+   網站: http://kaiching.org
+   作者: 張凱慶
+   時間: 2023 年 7 月  */
