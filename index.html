@@ -1,51 +1,33 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="zh-TW">
 <head>
-    <!-- 設定網頁編碼 -->
-    <meta charset="utf-8">
-    <!-- 設定標題列文字 -->
-    <title>編密碼小工具</title>
-    <!-- 設定樣式表 -->
-    <link rel="stylesheet" href="app_style.css" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imgur 圖片上傳與顯示 (Python版)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #imagePreview {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+    </style>
     <!-- 引入 Brython 程式庫 -->
-    <script src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/brython@3/brython_stdlib.js">
-    </script>
-    <!-- 引入 Encrypt 類別 -->
-    <script type="text/python" src="encrypt.py">
-    </script>
-    <!-- 引入 controller 程式 -->
-    <script type="text/python" src="controller.py">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/brython@3/brython_stdlib.js"></script>
 </head>
-
 <body onload="brython()">
-    <!-- 設定網頁標題 -->
-    <h1>編密碼小工具</h1>
-    <!-- 設定編密碼小工具的元素排列 -->
-    <div class="app">
-        <table class="app">
-            <tr><td>輸入：</td>
-                <td class="input" colspan="6"><input type="text" id="input" name="input" autofocus></td></tr>
-            <tr><td>輸出：</td>
-                <td class="output" colspan="6"><input type="text" id="output" name="output" readonly></td></tr>
-            <tr><td><button id="new" type="button">新建</button></td>
-                <td><button id="load" type="button">載入</button></td>
-                <td><button id="save" type="button">存檔</button></td>
-                <td><button id="encode" type="button">編碼</button></td>
-                <td><button id="decode" type="button">解碼</button></td>
-                <td><button id="clear" type="button">清除</button></td>
-                <td><button id="copy" type="button">拷貝</button></td></tr>
-            <tr><td id="result" colspan="7">狀態列</td></tr>
-        </table>
-    </div>
+    <h1>Imgur 圖片上傳與顯示 (Python版)</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <button id="uploadButton">上傳圖片</button>
+    <div id="result"></div>
+    <img id="imagePreview" src="" alt="預覽圖片">
+
+    <!-- 引入 Python 腳本 -->
+    <script type="text/python" src="imgur_uploader.py"></script>
 </body>
 </html>
-
-<!-- 檔名: index.html
-     說明:《Python入門指南》的範例程式
-     網站: http://kaiching.org
-     作者: 張凱慶
-     時間: 2023 年 7 月  -->
