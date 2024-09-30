@@ -1,166 +1,145 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCC COIN SAMPLE</title>
+    <title>NCC 2025</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 1000px;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        h1, h2 {
+        h1 {
             text-align: center;
-            color: #333;
+            color: #2c3e50;
             margin-bottom: 30px;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 40px;
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
         }
-        .photo-container {
-            text-align: center;
+        .video-container, .slideshow-container {
+            width: 48%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        img {
-            max-width: 100%;
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .slideshow-container {
+            position: relative;
+        }
+        .mySlides {
+            display: none;
+        }
+        .mySlides img {
+            width: 100%;
             height: auto;
+            border-radius: 10px;
         }
-        .upload-section {
-            text-align: center;
-            margin-top: 30px;
-            margin-bottom: 30px;
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
         }
-        #imagePreview {
-            max-width: 300px;
-            margin-top: 20px;
+        @keyframes fade {
+            from {opacity: .4} 
+            to {opacity: 1}
         }
         .email-link {
             display: block;
             text-align: center;
             margin-top: 20px;
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .email-link:hover {
+            background-color: #2980b9;
+        }
+        .design-element {
+            height: 5px;
+            background: linear-gradient(to right, #3498db, #2ecc71, #f1c40f, #e74c3c);
+            margin: 20px 0;
         }
     </style>
-    <!-- 引入 Brython 程式庫 -->
-    <script src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/brython@3/brython_stdlib.js"></script>
 </head>
-<body onload="brython()">
-    <h1>NCC COIN SAMPLE Send your Ideas</h1>
-    
-    <div class="gallery">
-        <div class="photo-container">
-            <a href="https://imgur.com/0cxg6lQ"><img src="https://i.imgur.com/0cxg6lQ.png" title="source: imgur.com" /></a>
-            <p>every boday united</p>
-        </div>
-        <div class="photo-container">
-            <a href="https://imgur.com/vWActHq"><img src="https://i.imgur.com/vWActHq.png" title="source: imgur.com" /></a>
-            <p>We are the World</p>
-        </div>
-        <div class="photo-container">
-            <img src="https://i.imgur.com/0sFAiD2.png" alt="照片 3">
-            <p>Salute</p>
-        </div>
-    </div>
-    
-    <h2>PIC uploaded</h2>
-    <div class="gallery" id="imageGallery">
-        <!-- Uploaded pic show here -->
-    </div>
-    
-    <div class="upload-section">
-        <h2>UPload your idea</h2>
-        <input type="file" id="imageInput" accept="image/*">
-        <button id="uploadButton">Upload</button>
-        <div id="result"></div>
-        <img id="imagePreview" src="" alt="Preview">
-    </div>
-    
-    <a href="mailto:s0914712@gmail.com" class="email-link">Send your Ideas by mail</a>
-    <h1>mail to:s0914712@gmail.com</h1>
-    <h2><a href="https://www.surveycake.com/s/2XeYr">Survey and vote</a></h2>
-
-    <script type="text/python">
-from browser import document, ajax, window, html
-import json
-
-class ImgurUploader:
-    def __init__(self):
-        self.client_id = 'a0f19779af81cc0'  # 請替換為您的Imgur Client ID
-    
-    def upload_image(self, event):
-        input_elem = document['imageInput']
-        if not input_elem.files:
-            window.alert('Choose from your file')
-            return
+<body>
+    <div class="container">
+        <div class="design-element"></div>
+        <h1>NCC 2025</h1>
+        <div class="design-element"></div>
         
-        file = input_elem.files[0]
-        reader = window.FileReader.new()
-        reader.readAsDataURL(file)
-        reader.bind('load', lambda e: self._send_to_imgur(e.target.result))
-
-    def _send_to_imgur(self, base64_image):
-        image_data = base64_image.split(',')[1]
+        <div class="content-wrapper">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/cxo5fQW-s-k" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            
+            <div class="slideshow-container">
+                <div class="mySlides fade">
+                    <img src="https://i.imgur.com/j1rL9Vn.png" alt="NCC Coin Image 1">
+                </div>
+                <div class="mySlides fade">
+                    <img src="https://i.imgur.com/obcnN5n.png" alt="NCC Coin Image 2">
+                </div>
+                <div class="mySlides fade">
+                    <img src="https://i.imgur.com/X8VIRbJ.png" alt="NCC Coin Image 3">
+                </div>
+                <div class="mySlides fade">
+                    <img src="https://i.imgur.com/TOKG84w.png" alt="NCC Coin Image 4">
+                </div>
+            </div>
+        </div>
         
-        req = ajax.Ajax()
-        req.bind('complete', self._on_complete)
-        req.open('POST', 'https://api.imgur.com/3/image')
-        req.set_header('Authorization', f'Client-ID {self.client_id}')
-        req.send({'image': image_data})
+        <a href="mailto:s0914712@gmail.com" class="email-link">Send your Ideas by mail</a>
+        
+        <div class="design-element"></div>
+    </div>
 
-    def _on_complete(self, req):
-        if req.status == 200:
-            response = json.loads(req.text)
-            image_url = response['data']['link']
-            document['result'].innerHTML = f'Upload successful！'
-            document['imagePreview'].attrs['src'] = image_url
-            self._add_image_to_gallery(image_url)
-            self._save_image_url(image_url)
-        else:
-            print('上傳失敗:', req.text)
-            document['result'].innerHTML = 'Upload Fail。'
+    <script>
+        let slideIndex = 0;
+        showSlides();
 
-    def _add_image_to_gallery(self, image_url):
-        gallery = document['imageGallery']
-        container = html.DIV(Class="photo-container")
-        img = html.IMG(src=image_url, alt="your uploaded pic")
-        container <= img
-        gallery.insertBefore(container, gallery.firstChild)
-
-    def _save_image_url(self, image_url):
-        current_images = json.loads(window.localStorage.getItem('uploadedImages') or '[]')
-        current_images.insert(0, image_url)
-        if len(current_images) > 9:  # 限制最多顯示9張圖片
-            current_images = current_images[:9]
-        window.localStorage.setItem('uploadedImages', json.dumps(current_images))
-
-def init():
-    uploader = ImgurUploader()
-    document['uploadButton'].bind('click', uploader.upload_image)
-    document['imageInput'].bind('change', preview_image)
-    load_saved_images()
-
-def preview_image(event):
-    file = event.target.files[0]
-    if file:
-        reader = window.FileReader.new()
-        reader.readAsDataURL(file)
-        reader.bind('load', lambda e: setattr(document['imagePreview'], 'src', e.target.result))
-
-def load_saved_images():
-    saved_images = json.loads(window.localStorage.getItem('uploadedImages') or '[]')
-    gallery = document['imageGallery']
-    for image_url in saved_images:
-        container = html.DIV(Class="photo-container")
-        img = html.IMG(src=image_url, alt="Saved pic")
-        container <= img
-        gallery <= container
-
-# 初始化
-init()
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            slides[slideIndex-1].style.display = "block";  
+            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
     </script>
 </body>
 </html>
